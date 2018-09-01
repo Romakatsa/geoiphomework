@@ -1,5 +1,7 @@
 package com.geoip.model.compositeId;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * Created by Roma on 01.09.2018.
  */
 @Embeddable
+@Data
 public class LocationIpId implements Serializable {
 
         @Column(name = "ip_from")
@@ -17,5 +20,6 @@ public class LocationIpId implements Serializable {
         private long ipTo;
 
         //TODO: override equals() and hashCode() for composite key
+
 
 }
