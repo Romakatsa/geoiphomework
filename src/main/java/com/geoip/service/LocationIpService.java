@@ -18,8 +18,11 @@ public class LocationIpService {
     public LocationIp findLocationByCanonicalIP(String canonicalIp) {
 
         long decimalIp = canonicalToDecimalIp(canonicalIp);
-        return locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp,decimalIp);
-
+        LocationIp locationIp = locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp,decimalIp);
+        if (locationIp != null){
+            locationIp.setIp(canonicalIp);
+        }
+        return locationIp;
     }
 
     public long canonicalToDecimalIp(String canonicalIp) {
