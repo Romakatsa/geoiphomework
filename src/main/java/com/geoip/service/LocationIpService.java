@@ -31,7 +31,7 @@ public class LocationIpService {
         if (!m.matches()) throw new IllegalArgumentException("Argument ip address does not matches ip regex");
 
         long decimalIp = canonicalToDecimalIp(canonicalIp);
-        LocationIp locationIp = locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp,decimalIp);
+        LocationIp locationIp = locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp);
         if (locationIp != null){
             locationIp.setIp(canonicalIp);
         }
