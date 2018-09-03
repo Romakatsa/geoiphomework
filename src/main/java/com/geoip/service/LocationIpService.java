@@ -1,9 +1,16 @@
 package com.geoip.service;
 
+import com.geoip.PostgresCsvLoader;
 import com.geoip.model.LocationIp;
 import com.geoip.repository.LocationIpRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Roma on 01.09.2018.
@@ -14,14 +21,22 @@ public class LocationIpService {
     @Autowired
     private LocationIpRepository locationIpRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(PostgresCsvLoader.class);
+
 
     public LocationIp findLocationByCanonicalIP(String canonicalIp) {
+        Long stTimeInSec = Instant.now().toEpochMilli();
+        Pattern p = Pattern.compile(LocationIp.ipRegEx);
+        Matcher m = p.matcher(canonicalIp);
+        if (!m.matches()) throw new IllegalArgumentException("Argument ip address does not matches ip regex");
 
         long decimalIp = canonicalToDecimalIp(canonicalIp);
         LocationIp locationIp = locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp,decimalIp);
         if (locationIp != null){
             locationIp.setIp(canonicalIp);
         }
+        Long endTimeInSec = Instant.now().toEpochMilli();
+        logger.info("time fetching element from DB is {} ms", endTimeInSec - stTimeInSec);
         return locationIp;
     }
 
@@ -38,6 +53,14 @@ public class LocationIpService {
         }
 
         return result;
+    }
+
+    public String decimalToCanonicalIp(long ip) {
+        return ((ip >> 24) & 0xFF) + "."
+                + ((ip >> 16) & 0xFF) + "."
+                + ((ip >> 8) & 0xFF) + "."
+                + (ip & 0xFF);
+
     }
 
 }

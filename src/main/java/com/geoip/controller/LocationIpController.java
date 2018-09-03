@@ -14,6 +14,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import java.time.Instant;
 
 /**
  * Created by Roma on 01.09.2018.
@@ -40,7 +41,7 @@ public class LocationIpController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity handleValidationExceptions(ConstraintViolationException ex) {
+    public ResponseEntity<String> handleValidationExceptions(ConstraintViolationException ex) {
 
         System.out.println();
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

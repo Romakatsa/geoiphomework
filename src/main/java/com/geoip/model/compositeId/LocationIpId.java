@@ -30,6 +30,7 @@ public class LocationIpId implements Serializable {
         @DecimalMax("4294967295")
         private long ipTo;
 
+
         //TODO: override equals() and hashCode() for composite key
 
 
