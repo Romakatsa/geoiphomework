@@ -52,8 +52,10 @@ Use following Select to search rows by created index
 
 Populate from .csv file. Csv file must be located in postgres server data directory.
 <pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
+
 #### OR
 #### Configure application properties (see project structure - resources) and build project
+But you need to create empty databases first (and configure test and main app property files)
 
 ### Run Application
 #### Maven
@@ -86,7 +88,7 @@ application-test.properties - properties for LocationIpControllerTest and Locati
 <pre>...
 spring.datasource.data = classpath:/testdata.sql
 ...</pre>
-sql script for populating test database with some entries
+sql script for populating test database with some entries.
 
 application-fullDatabaseTest.properties - properties for LocationIpIntegrationTest class. Defines
 <pre>...
