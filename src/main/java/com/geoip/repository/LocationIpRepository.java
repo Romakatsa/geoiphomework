@@ -18,4 +18,6 @@ public interface LocationIpRepository extends JpaRepository<LocationIp, Location
     @Query(value = "SELECT * FROM ip_location WHERE int8range(ip_from-1,ip_to+1) @> int8(:ip)", nativeQuery = true)
     LocationIp findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(@Param("ip") long ip1);
 
+
+
 }

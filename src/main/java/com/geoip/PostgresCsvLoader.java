@@ -50,6 +50,10 @@ public class PostgresCsvLoader implements ApplicationRunner {
         final String sql = "COPY " + tableNameCsvColumnsOrder +" FROM stdin (FORMAT csv, DELIMITER ',', QUOTE '\"', NULL 'null')";
         System.out.println(sql);
         try {
+
+            // try get unwrapped plain postgres connection from dataSource
+            // to perform copy from csv
+
             Long stTimeInSec = Instant.now().getEpochSecond();
 
             logger.info("Try populate database...");

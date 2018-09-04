@@ -1,3 +1,4 @@
+TRUNCATE TABLE ip_location;
 insert into ip_location (ip_from, ip_to, country_code, country_name, city_name, region_name, latitude, longitude)
 values
 (16777216,16777471,'AU','Australia','Queensland','Brisbane',-27.467940,153.028090),

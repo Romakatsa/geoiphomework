@@ -5,11 +5,11 @@
 
 	<groupId>com.geoip</groupId>
 	<artifactId>geoiphomework</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 
 	<name>geoiphomework</name>
-	<description>Demo project for Spring Boot</description>
+	<description>GeoIp Homework project</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -88,6 +88,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 

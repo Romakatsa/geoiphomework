@@ -21,6 +21,9 @@ public class LocationIp {
 
     public static final String ipRegEx = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
 
+    @Transient
+    private long IPv4;
+
     @JsonIgnore
     @EmbeddedId
     private LocationIpId id;

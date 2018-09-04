@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,15 +29,21 @@ public class LocationIpService {
         Long stTimeInSec = Instant.now().toEpochMilli();
         Pattern p = Pattern.compile(LocationIp.ipRegEx);
         Matcher m = p.matcher(canonicalIp);
+
         if (!m.matches()) throw new IllegalArgumentException("Argument ip address does not matches ip regex");
 
         long decimalIp = canonicalToDecimalIp(canonicalIp);
         LocationIp locationIp = locationIpRepository.findByIdIpFromLessThanEqualAndIdIpToGreaterThanEqual(decimalIp);
         if (locationIp != null){
             locationIp.setIp(canonicalIp);
+            locationIp.setIPv4(decimalIp);
+        } else {
+            throw new NoSuchElementException("There are no information about requested IP");
         }
+
         Long endTimeInSec = Instant.now().toEpochMilli();
         logger.info("time fetching element from DB is {} ms", endTimeInSec - stTimeInSec);
+
         return locationIp;
     }
 

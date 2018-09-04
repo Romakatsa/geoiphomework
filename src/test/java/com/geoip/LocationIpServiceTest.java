@@ -8,9 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,12 +23,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class LocationIpRepositoryTest {
+public class LocationIpServiceTest {
 
 
     @Autowired
     private LocationIpService service;
-
 
     @Test
     public void testValidIpLocation() throws Exception {
@@ -35,12 +37,12 @@ public class LocationIpRepositoryTest {
         assertThat(repIpLoc.getCountryName()).isEqualTo("Australia");
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void testAbsentIpLocation() throws Exception {
 
         String testCanonicalIp = "100.100.100.100"; //no ip in testdata.sql
         LocationIp repIpLoc = service.findLocationByCanonicalIP(testCanonicalIp);
-        assertThat(repIpLoc).isNull();
+
     }
 
     @Test(expected = IllegalArgumentException.class)
