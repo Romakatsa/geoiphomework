@@ -43,9 +43,9 @@ Execute following sql scripts in postgreSql:
 	  city_name character varying(128) NOT NULL,
 	  latitude real NOT NULL,
 	  longitude real NOT NULL,
-	  CONSTRAINT ip_location_pkey PRIMARY KEY (ip_from, ip_to)
+	  CONSTRAINT ip_location_pkey PRIMARY KEY (ip_from-1, ip_to+1)
   );
-  CREATE INDEX ip_range_gist ON ip_location USING gist (int8range(ip_from,ip_to) range_ops);
+  CREATE INDEX ip_range_gist ON ip_location USING gist (int8range(ip_from-1,ip_to+1) range_ops);
 </pre>
 Use following Select to search rows by created index
 <pre>Select * from ip_location where int8range(ip_from,ip_to) @> int8(?)</pre>
