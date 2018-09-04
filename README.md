@@ -32,9 +32,9 @@ data is used from https://lite.ip2location.com/database/ip-country-region-city-l
 #### Configure database manually
 Execute following sql scripts in postgreSql:
 <pre>
-  CREATE DATABASE ip2location WITH ENCODING 'UTF8';
-  \c ip2location
-  CREATE TABLE ip2location_db5(
+  CREATE DATABASE GeoIp WITH ENCODING 'UTF8';
+  \c GeoIp
+  CREATE TABLE ip_location(
 	  ip_from bigint NOT NULL,
 	  ip_to bigint NOT NULL,
 	  country_code character(2) NOT NULL,
@@ -43,9 +43,13 @@ Execute following sql scripts in postgreSql:
 	  city_name character varying(128) NOT NULL,
 	  latitude real NOT NULL,
 	  longitude real NOT NULL,
-	  CONSTRAINT ip2location_db5_pkey PRIMARY KEY (ip_from, ip_to)
+	  CONSTRAINT ip_location_pkey PRIMARY KEY (ip_from, ip_to)
   );
+  CREATE INDEX ip_range_gist ON ip_location USING gist (int8range(ip_from,ip_to) range_ops);
 </pre>
+Use following Select to search rows by created index
+<pre>Select * from ip_location where int8range(ip_from,ip_to) @> int8(?)</pre>
+
 Populate from .csv file. Csv file must be located in postgres server data directory.
 <pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
 #### OR
