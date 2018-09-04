@@ -92,3 +92,8 @@ application-fullDatabaseTest.properties - properties for LocationIpIntegrationTe
   customProps.pathToCsv = /ip2location_test.csv
 ...</pre>
 
+#### tests
+
+LocationIpControllerTest - mocks @Service component and tests controller requestMappings
+LocationIpServiceTest - use populated database to test persistance and service layers
+LocationIpIntegrationTest - Creates new database, populates it from csv and performs get requests to test entire app
