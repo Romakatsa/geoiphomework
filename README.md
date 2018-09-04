@@ -48,15 +48,15 @@ Execute following sql scripts in postgreSql:
 </pre>
 Populate from .csv file. Csv file must be located in postgres server data directory.
 <pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
-### OR
+#### OR
 #### Configure application properties (see project structure - resources) and build project
 
-#### Run Application
-##### Maven
+### Run Application
+#### Maven
     <pre>mvn spring-boot:run</pre>
-##### Deploy WAR package 
+#### Deploy WAR package 
 Copy geoiphomework.war archive to tomcat webApps folder and run server
-##### Run JAR
+#### Run JAR
 execute <pre>java -Xms512m -geoiphomework.jar</pre> from command line
 ### Project Structure
 
