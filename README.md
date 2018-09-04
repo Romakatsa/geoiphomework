@@ -30,10 +30,65 @@ data is used from https://lite.ip2location.com/database/ip-country-region-city-l
 ### Run
 
 #### Configure database manually
+Execute following sql scripts in postgreSql:
+<pre>
+  CREATE DATABASE ip2location WITH ENCODING 'UTF8';
+  \c ip2location
+  CREATE TABLE ip2location_db5(
+	  ip_from bigint NOT NULL,
+	  ip_to bigint NOT NULL,
+	  country_code character(2) NOT NULL,
+	  country_name character varying(64) NOT NULL,
+	  region_name character varying(128) NOT NULL,
+	  city_name character varying(128) NOT NULL,
+	  latitude real NOT NULL,
+	  longitude real NOT NULL,
+	  CONSTRAINT ip2location_db5_pkey PRIMARY KEY (ip_from, ip_to)
+  );
+</pre>
+Populate from .csv file. Csv file must be located in postgres server data directory.
+<pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
+### OR
+#### Configure application properties (see project structure - resources) and build project
 
-
-
-
+#### Run Application
+##### Maven
+    <pre>mvn spring-boot:run</pre>
+##### Deploy WAR package 
+Copy geoiphomework.war archive to tomcat webApps folder and run server
+##### Run JAR
+execute <pre>java -Xms512m -geoiphomework.jar</pre> from command line
 ### Project Structure
 
 ![alttext](https://raw.githubusercontent.com/Romakatsa/geoiphomework/master/image.png)
+
+#### PostgresCsvLoader
+PostgresCsvLoader - is a class implementing ApplicationRunner interface used run method to populate database from csv file using postgres CopyManager performing 'Copy tblName From csvFile...'
+
+#### resources:
+application.properties - main app properties. Some lines are: 
+<pre>
+#schema for database creation
+  spring.datasource.schema = classpath:/schema-main.sql
+#run PostgresCsvLoader to populate database from csv
+  customProps.populateDBFromCSV = true
+#relative to resources folder. Csv file to populate from.
+  customProps.pathToCsv = /ip2location_test.csv
+</pre>
+
+application-test.properties - properties for LocationIpControllerTest and LocationIpServiseTest tests. Defines
+<pre>...
+spring.datasource.data = classpath:/testdata.sql
+...</pre>
+sql script for populating test database with some entries
+
+application-fullDatabaseTest.properties - properties for LocationIpIntegrationTest class. Defines
+<pre>...
+#schema for test database creation
+  spring.datasource.schema = classpath:/schema-test.sql
+#run PostgresCsvLoader to populate database from .csv
+  customProps.populateDBFromCSV = false
+#relative to resources folder. Csv file to populate test database from
+  customProps.pathToCsv = /ip2location_test.csv
+...</pre>
+
