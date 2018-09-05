@@ -43,21 +43,23 @@ Execute following sql scripts in postgreSql:
 	  city_name character varying(128) NOT NULL,
 	  latitude real NOT NULL,
 	  longitude real NOT NULL,
-	  CONSTRAINT ip_location_pkey PRIMARY KEY (ip_from-1, ip_to+1)
+	  CONSTRAINT ip_location_pkey PRIMARY KEY (ip_from, ip_to)
   );
   CREATE INDEX ip_range_gist ON ip_location USING gist (int8range(ip_from-1,ip_to+1) range_ops);
 </pre>
 Use following Select to search rows by created index
-<pre>Select * from ip_location where int8range(ip_from,ip_to) @> int8(?)</pre>
+<pre>Select * from ip_location where int8range(ip_from-1,ip_to+1) @> int8(?)</pre>
 
 Populate from .csv file. Csv file must be located in postgres server data directory.
-<pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
+<pre>COPY ip_location FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
+
 #### OR
 #### Configure application properties (see project structure - resources) and build project
+But you need to create empty databases first (and configure test and main app property files)
 
 ### Run Application
 #### Maven
-    <pre>mvn spring-boot:run</pre>
+<pre> mvn spring-bot:run </pre>
 #### Deploy WAR package 
 https://drive.google.com/open?id=1mp-8HGRKaCIlNRHjd1VZa2RqD6UhKGW5
 Copy geoiphomework.war archive to tomcat webApps folder and run server
@@ -86,7 +88,7 @@ application-test.properties - properties for LocationIpControllerTest and Locati
 <pre>...
 spring.datasource.data = classpath:/testdata.sql
 ...</pre>
-sql script for populating test database with some entries
+sql script for populating test database with some entries.
 
 application-fullDatabaseTest.properties - properties for LocationIpIntegrationTest class. Defines
 <pre>...
