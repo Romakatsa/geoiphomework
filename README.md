@@ -1,6 +1,20 @@
 ## geoiphomework
 
-This is my homework project - spring boot rest web service with only one get endpoint host/geoip/{ipv4} (ex. localhost:8080/geoip/8.8.8.8}, 
+This is my homework project - spring boot rest web service with only one get endpoint host/geoip/{ipv4} 
+
+Following type of ip addressed in requests are supported:
+8.8.8.8 - canonical dot-decimal
+8.8 - dot-decimal form of 8.0.0.8
+8.8.8 - dot-decimal form of 8.8.0.8
+0xFF.0xFF.0xFF.0xFF - dot-hex form 255.255.255.255
+0377.0377.0377.0377 - dot-oct form of 255.255.255.255
+0x000A.077.00004.255 - dot-oct+hex+dec form, allowing zero padding for oct and hex numbers
+134744072 - decimal integer form of 8.8.8.8
+0x8080808 - hex integer form of 8.8.8.8
+01002004010 - octal integer form of 8.8.8.8
+
+
+(ex. localhost:8080/geoip/8.8.8.8}, 
 returning JSON that contains following information about passed ipv4 address:
 <pre>
 {
