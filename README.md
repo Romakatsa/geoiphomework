@@ -61,11 +61,11 @@ But you need to create empty databases first (and configure test and main app pr
 #### Maven
 <pre> mvn spring-bot:run </pre>
 #### Deploy WAR package 
-https://drive.google.com/open?id=1mp-8HGRKaCIlNRHjd1VZa2RqD6UhKGW5
-Copy geoiphomework.war archive to tomcat webApps folder and run server
+<!--https://drive.google.com/open?id=1mp-8HGRKaCIlNRHjd1VZa2RqD6UhKGW5
+Copy geoiphomework.war archive to tomcat webApps folder and run server-->
 #### Run JAR
-https://drive.google.com/open?id=1x3YYML1MVExeSCjhYYC9zKqal-ZtKegD
-execute <pre>java -Xms512m -geoiphomework.jar</pre> from command line
+<!--https://drive.google.com/open?id=1x3YYML1MVExeSCjhYYC9zKqal-ZtKegD
+execute <pre>java -Xms512m -geoiphomework.jar</pre> from command line-->
 ### Project Structure
 
 ![alttext](https://raw.githubusercontent.com/Romakatsa/geoiphomework/master/image.png)
