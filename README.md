@@ -11,8 +11,8 @@ Following type of ip addressed in requests are supported:
 0377.0377.0377.0377 - dot-oct form of 255.255.255.255
 0x000A.077.00004.255 - dot-oct+hex+dec form, allowing zero padding for oct and hex numbers
 134744072 - decimal integer form of 8.8.8.8
-0x8080808 - hex integer form of 8.8.8.8
-01002004010 - octal integer form of 8.8.8.8
+0x8080808 - hex integer form of 8.8.8.8 (starts with 0x or 0X)
+01002004010 - octal integer form of 8.8.8.8 (starts with 0)
 </pre>
 
 (ex. localhost:8080/geoip/8.8.8.8}, 
