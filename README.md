@@ -51,7 +51,7 @@ Use following Select to search rows by created index
 <pre>Select * from ip_location where int8range(ip_from-1,ip_to+1) @> int8(?)</pre>
 
 Populate from .csv file. Csv file must be located in postgres server data directory.
-<pre>COPY ip2location_db5 FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
+<pre>COPY ip_location FROM 'IP2LOCATION-LITE-DB5.CSV' WITH CSV QUOTE AS '"';</pre>
 
 #### OR
 #### Configure application properties (see project structure - resources) and build project
