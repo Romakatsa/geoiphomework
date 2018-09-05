@@ -3,6 +3,7 @@
 This is my homework project - spring boot rest web service with only one get endpoint host/geoip/{ipv4} 
 
 Following type of ip addressed in requests are supported:
+<pre>
 8.8.8.8 - canonical dot-decimal
 8.8 - dot-decimal form of 8.0.0.8
 8.8.8 - dot-decimal form of 8.8.0.8
@@ -12,7 +13,7 @@ Following type of ip addressed in requests are supported:
 134744072 - decimal integer form of 8.8.8.8
 0x8080808 - hex integer form of 8.8.8.8
 01002004010 - octal integer form of 8.8.8.8
-
+</pre>
 
 (ex. localhost:8080/geoip/8.8.8.8}, 
 returning JSON that contains following information about passed ipv4 address:
